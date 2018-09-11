@@ -1,7 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-
+icons=["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", 
+"fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube",
+ "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb" ]
 
 /*
  * Display the cards on the page
@@ -9,6 +11,45 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+//Cards container
+const cardsContainer = document.querySelector(".deck");
+
+//create some type of array that puts two of the selected cards and compares them
+let flipUpCards = [];
+
+ //Create our cards
+for(let i=0; i <icons.length; i++) {
+	const card = document.createElement("div");
+	card.classList.add("card");
+	card.innerHTML = `<i class="${icons[i]}"></i>`;//template literals
+	cardsContainer.appendChild(card); //adding the card class to dynamicallly generate
+
+
+	//card click event
+	card.addEventListener("click", function() {
+
+		//existing fliped up card
+		if(flipUpCards.length === 1) {
+			card.classList.add("open", "show");
+			flipUpCards.push(this); //<this> refers to card from card.addEventListener...
+			
+
+				//comparing our 2 opened cards
+				if(this.innerHTML=== flipUpCards[0].innerHTML){
+					console.log("Yay! it matched!");
+				} else {
+					console.log("Doesn't match, try again!");
+				}
+
+		} else {
+			card.classList.add("open", "show");
+			flipUpCards.push(this); //this refers to card from card.addEventListener...
+			
+		}
+	
+	});
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
