@@ -31,14 +31,29 @@ for(let i=0; i <icons.length; i++) {
 
 		//existing fliped up card
 		if(flipUpCards.length === 1) {
+
+				const currentCard = this; //to shorten it
+				const previousCard = flipUpCards[0];
+
 			card.classList.add("open", "show");
 			flipUpCards.push(this); //<this> refers to card from card.addEventListener...
 			
 
 				//comparing our 2 opened cards
-				if(this.innerHTML=== flipUpCards[0].innerHTML){
+				if(currentCard.innerHTML === previousCard.innerHTML){
+
+					currentCard.classList.add("match");
+					currentCard.classList.add("match");
+					//so far when we click on 2 matched cards with the displayed message
+					//the cards display it once, wether its matched again, or
+					//not matching, so we have to create a way for the flipped up cards 
+					//to be reset again once there is a match or no match. 
+					flipUpCards = []; //empty array to reset the card
+
 					console.log("Yay! it matched!");
 				} else {
+					currentCard.classList.remove("open", "show");
+					previousCard.classList.remove("open", "show");
 					console.log("Doesn't match, try again!");
 				}
 
