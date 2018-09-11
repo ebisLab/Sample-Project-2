@@ -18,6 +18,9 @@ const cardsContainer = document.querySelector(".deck");
 //create some type of array that puts two of the selected cards and compares them
 let flipUpCards = [];
 
+//for reset
+let matchedCards=[];
+
  //Create our cards
 for(let i=0; i <icons.length; i++) {
 	const card = document.createElement("div");
@@ -43,18 +46,25 @@ for(let i=0; i <icons.length; i++) {
 				if(currentCard.innerHTML === previousCard.innerHTML){
 
 					currentCard.classList.add("match");
-					currentCard.classList.add("match");
+					previousCard.classList.add("match");
+
+					matchedCards.push(currentCard, previousCard); //match cards go straight to matchedCards array
+					
 					//so far when we click on 2 matched cards with the displayed message
 					//the cards display it once, wether its matched again, or
 					//not matching, so we have to create a way for the flipped up cards 
 					//to be reset again once there is a match or no match. 
 					flipUpCards = []; //empty array to reset the card
 
+					//Check if the came is over!
+					gameWon();
+
 					console.log("Yay! it matched!");
 				} else {
 					currentCard.classList.remove("open", "show");
 					previousCard.classList.remove("open", "show");
 					console.log("Doesn't match, try again!");
+					flipUpCards = [];//empty array to reset the card
 				}
 
 		} else {
@@ -79,6 +89,15 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+
+//Game resets
+//if the number of the matched = to the number of the original icons
+function gameWon() {
+	if(matchedCards.length === icons.length) {
+	alert("YOU WON THE GAME!!!! CONGRATULATIONS!!!");
+}
 }
 
 
